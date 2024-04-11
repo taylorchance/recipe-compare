@@ -5,14 +5,9 @@ const props = defineProps<{
 
 import { parseIngredient } from '@jlucaspains/sharp-recipe-parser'
 
-console.log('original', props.list)
-
 const parsedIngredients = props.list.map(ingredient => {
   return parseIngredient(ingredient, 'en')
 })
-
-console.log('parsedIngredients', parsedIngredients)
-
 </script>
 
 <template>
