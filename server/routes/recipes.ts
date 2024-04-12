@@ -7,17 +7,16 @@ const findMatches = (arr1: IParsedIngedient[], arr2: IParsedIngedient[]) => {
     const wordsArray1 = item1.ingredient.toLowerCase().split(" ")
     arr2.forEach(item2 => {
       const wordsArray2 = item2.ingredient.toLowerCase().split(" ")
-      // const intersection = wordsArray2.filter(word => wordsArray1.includes(word))
-      const intersection = wordsArray2.filter((word: string) => wordsArray1.includes(word) && !ignoreWords.includes(word))
+      // const matches = wordsArray2.filter(word => wordsArray1.includes(word))
+      const matches = wordsArray2.filter((word: string) => wordsArray1.includes(word) && !ignoreWords.includes(word))
 
-      intersection.forEach((word: string) => ignoreWords.push(word))
-      if (intersection.length) {
-        item1.matches = intersection
-        item2.matches = intersection
+      matches.forEach((word: string) => ignoreWords.push(word))
+      if (matches.length) {
+        item1.matches = matches
+        item2.matches = matches
       }
-      // item1.matches = intersection.length ? intersection : []
-      // item2.matches = intersection.length ? intersection : []
-
+      // item1.matches = matches.length ? matches : []
+      // item2.matches = matches.length ? matches : []
     })
   })
 
