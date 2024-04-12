@@ -17,18 +17,9 @@ const { data, pending, error } = await useAsyncData(
 <template>
   <section class="section">
     <div class="columns">
-
-      <div
-        v-for="recipe in data"
-        :key="recipe.url"
-        class="column"
-      >
-        <Recipe
-          :recipe="recipe"
-          :ingredients="recipe.ingredients"
-        />
+      <div v-for="recipe in data" :key="recipe.url" class="column">
+        <Recipe :recipe="recipe" />
       </div>
     </div>
-
   </section>
 </template>

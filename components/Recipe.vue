@@ -1,14 +1,9 @@
 <script setup lang="ts">
 const props = defineProps<{
-  recipe: object;
-  ingredients: object[];
+  recipe: IRecipe;
 }>()
 
-const sortedList = props.ingredients.sort((a, b) => {
-  const aMatchCount = !a.matches ? 0 : a.matches.reduce((total, string) => total + string.length, 0)
-  const bMatchCount = !b.matches ? 0 : b.matches.reduce((total, string) => total + string.length, 0)
-  return bMatchCount - aMatchCount
-})
+console.log('recipe', props.recipe)
 
 const multiplier = ref<number>(1)
 </script>
@@ -35,7 +30,7 @@ const multiplier = ref<number>(1)
       />
     </div>
     <Ingredient
-      v-for="ingredient in sortedList"
+      v-for="ingredient in recipe.ingredients"
       :key="ingredient.ingredient"
       :parsed="ingredient"
       :multiplier="multiplier"

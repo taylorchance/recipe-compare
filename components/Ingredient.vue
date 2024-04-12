@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
-  parsed: object;
+  parsed: IParsedIngedient;
   multiplier: number;
 }>()
 
