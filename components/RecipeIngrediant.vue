@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { parse } from 'ingredients-parser'
-
 const props = defineProps<{
   ingredient: string,
   multiplier: number
 }>()
+
+import { parse } from 'ingredients-parser'
 
 const isChecked = ref(false)
 const ingredientObj = parse(props.ingredient)
