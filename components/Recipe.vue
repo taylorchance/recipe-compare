@@ -18,7 +18,7 @@ const multiplier = ref<number>(1)
       View on Recipe Scraper
     </a>
 
-    <div class="level my-3">
+    <div class="level is-mobile my-3">
       <Duration
         v-if="recipe.totalTime"
         :duration="recipe.totalTime"
