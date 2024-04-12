@@ -5,12 +5,14 @@ const props = defineProps<{
 
 const { matches } = props.parsed
 
+// console.log('matchCount', props.parsed.matchCount)
+
 const wrappedIngrediant = (ingredient) => {
-  console.log('ingredient', ingredient)
+  // const ignoreWords = ['dry', 'chopped'];
+
   if (matches) {
     const regex = new RegExp(`\\b(${matches.join('|')})\\b`, 'gi');
     return ingredient.replace(regex, '<span>$1</span>');
-    // return matches + ingredient
   }
   return ingredient
 }

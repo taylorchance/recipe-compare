@@ -34,8 +34,6 @@ const ingredients2 = [
   "Parmesan cheese (and finely chopped parsley (optional))"
 ]
 
-const ignoreWords = ['1', '1/2', 'cup', '(or', '2', 'fresh', 'dry', 'chopped'];
-
 import { parseIngredient } from '@jlucaspains/sharp-recipe-parser'
 
 const parsedIngredients1 = ingredients1.map(ingredient => {
@@ -46,18 +44,22 @@ const parsedIngredients2 = ingredients2.map(ingredient => {
   return parseIngredient(ingredient, 'en')
 })
 
+console.log('parsedIngredients2', parsedIngredients2)
+
+
+
 const reorder = (arr1, arr2) => {
-  console.log('arr1', arr1)
-  // return [
-  //   [],
-  //   []
-  // ]
+  let ignoreWords = ['chopped', 'red', 'white']
 
   arr1.forEach(item1 => {
     const wordsArray1 = item1.ingredient.toLowerCase().split(" ")
     arr2.forEach(item2 => {
       const wordsArray2 = item2.ingredient.toLowerCase().split(" ")
-      const intersection = wordsArray2.filter(word => wordsArray1.includes(word))
+      // const intersection = wordsArray2.filter(word => wordsArray1.includes(word))
+      const intersection = wordsArray2.filter(word => wordsArray1.includes(word) && !ignoreWords.includes(word))
+
+      intersection.forEach(word => ignoreWords.push(word))
+
       if (intersection.length) {
         item1.matches = intersection
         item2.matches = intersection
@@ -69,42 +71,9 @@ const reorder = (arr1, arr2) => {
     arr1,
     arr2
   ]
-
-  return [
-    arr1.sort((a, b) => {
-        // Check if 'matches' property exists in each object
-        const aHasMatches = a.matches && a.matches.length > 0;
-        const bHasMatches = b.matches && b.matches.length > 0;
-
-        // Objects with 'matches' come first
-        if (aHasMatches && !bHasMatches) {
-            return -1;
-        } else if (!aHasMatches && bHasMatches) {
-            return 1;
-        } else {
-            return 0; // Maintain order if both have or don't have matches
-        }
-    }),
-        arr2.sort((a, b) => {
-        // Check if 'matches' property exists in each object
-        const aHasMatches = a.matches && a.matches.length > 0;
-        const bHasMatches = b.matches && b.matches.length > 0;
-
-        // Objects with 'matches' come first
-        if (aHasMatches && !bHasMatches) {
-            return -1;
-        } else if (!aHasMatches && bHasMatches) {
-            return 1;
-        } else {
-            return 0; // Maintain order if both have or don't have matches
-        }
-    })
-  ]
 }
 
-const [reorderedIngredients1, reorderedIngredients2] = reorder(parsedIngredients1, parsedIngredients2);
-console.log('reorderedIngredients1', reorderedIngredients1)
-console.log('reorderedIngredients2', reorderedIngredients2)
+const [reorderedIngredients1, reorderedIngredients2] = reorder(parsedIngredients1, parsedIngredients2)
 </script>
 
 <template>
@@ -126,29 +95,22 @@ console.log('reorderedIngredients2', reorderedIngredients2)
   <h1 class="title has-text-centered mb-3">Reordered:</h1>
   <div class="columns">
     <div class="column">
-      <!-- <p v-for="{ ingredient } in reorderedIngredients1" :key="ingredient" class="ingredient">
-        {{ ingredient }}
-      </p> -->
-      <Parse
+      <!-- <Parse
         v-for="ingredient in reorderedIngredients1"
         :key="ingredient.ingredient"
         :parsed="ingredient"
-      />
+      /> -->
+
+      <List :list="reorderedIngredients1" />
     </div>
     <div class="column">
-      <!-- <p v-for="{ ingredient } in reorderedIngredients2" :key="ingredient" class="ingredient">
-        {{ ingredient }}
-      </p> -->
-      <Parse
+      <List :list="reorderedIngredients2" />
+
+      <!-- <Parse
         v-for="ingredient in reorderedIngredients2"
         :key="ingredient.ingredient"
         :parsed="ingredient"
-      />
+      /> -->
     </div>
   </div>
-
-  <!-- <Reorder
-    :array1="array1"
-    :array2="array2"
-  /> -->
 </template>

@@ -1,23 +1,19 @@
 <script setup lang="ts">
 const props = defineProps<{
-  list: string[];
+  list: object[];
 }>()
 
-import { parseIngredient } from '@jlucaspains/sharp-recipe-parser'
-
-const parsedIngredients = props.list.map(ingredient => {
-  return parseIngredient(ingredient, 'en')
+const sortedList = props.list.sort((a, b) => {
+  const aMatchCount = !a.matches ? 0 : a.matches.reduce((total, string) => total + string.length, 0)
+  const bMatchCount = !b.matches ? 0 : b.matches.reduce((total, string) => total + string.length, 0)
+  return bMatchCount - aMatchCount
 })
 </script>
 
 <template>
-  <div>
-
-    <Parse
-      v-for="ingredient in parsedIngredients"
-      :key="ingredient.ingredient"
-      :parsed="ingredient"
-    />
-    
-  </div>
+  <Parse
+    v-for="ingredient in sortedList"
+    :key="ingredient.ingredient"
+    :parsed="ingredient"
+  />
 </template>
