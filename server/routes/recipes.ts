@@ -15,18 +15,27 @@ const findMatches = (arr1: IParsedIngedient[], arr2: IParsedIngedient[]) => {
         item1.matches = intersection
         item2.matches = intersection
       }
+      // item1.matches = intersection.length ? intersection : []
+      // item2.matches = intersection.length ? intersection : []
+
     })
   })
 
   return [arr1, arr2]
 }
 
-const sortMatches = (matches: IParsedIngedient[]) => {
-  return matches.sort((a, b) => {
-      const aMatchCount = !a.matches ? 0 : a.matches.reduce((total: number, string: string) => total + string.length, 0)
-      const bMatchCount = !b.matches ? 0 : b.matches.reduce((total: number, string: string) => total + string.length, 0)
+const sortMatches = (arr: IParsedIngedient[]) => {
+  return arr.sort((a, b) => {
+    const aMatchCount = !a.matches ? 0 : a.matches.reduce((total: number, string: string) => total + string.length, 0)
+    const bMatchCount = !b.matches ? 0 : b.matches.reduce((total: number, string: string) => total + string.length, 0)
+    if (bMatchCount !== aMatchCount) {
       return bMatchCount - aMatchCount
-    })
+    } else if (bMatchCount && aMatchCount) {
+      return a.matches[0].localeCompare(b.matches[0])
+    } else {
+      return 0
+    }
+  })
 }
 
 export default defineEventHandler(async (event ) => {
