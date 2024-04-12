@@ -1,9 +1,11 @@
 <script setup lang="ts">
 const url1 = ref<string>('')
 const url2 = ref<string>('')
+const isPending = ref<boolean>(false)
 
-const handleSubmit = () => {
-  navigateTo({
+const handleSubmit = async () => {
+  isPending.value = true
+  await navigateTo({
     path: '/compare',
     query: {
       url1: url1.value,
@@ -17,9 +19,14 @@ const handleSubmit = () => {
   <section class="hero is-fullheight">
     <div class="hero-head">
     </div>
+    
 
     <div class="hero-body">
       <div class="container">
+
+        <div v-if="isPending" class="loader-wrapper">
+          <div class="loader is-loading"></div>
+        </div>
 
         <h1 class="title">
           Recipe Compare

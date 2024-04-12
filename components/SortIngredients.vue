@@ -23,7 +23,8 @@ const multiplier = ref<number>(1)
   </a>
 
   <div class="level my-3">
-    <Duration :duration="recipe.totalTime" />
+    <Duration v-if="recipe.totalTime" :duration="recipe.totalTime" />
+    
     <Servings
       v-if="recipe.recipeYield"
       :servings="recipe.recipeYield"
