@@ -20,7 +20,7 @@ const wrapped = (string) => {
 <template>
   <p v-if="parsed" class="ingredient">
     <span v-if="parsed.quantity" class="quantity">
-      {{ parsed.quantity * multiplier }}
+      {{ Math.round(parsed.quantity * multiplier * 100) / 100 }}
     </span>
 
     <span v-if="parsed.unit" class="unit">
