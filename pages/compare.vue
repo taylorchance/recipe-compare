@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import { parseIngredient } from '@jlucaspains/sharp-recipe-parser'
+
 const route = useRoute()
 const url1 = computed(() => route.query.url1 as string)
 const url2 = computed(() => route.query.url2 as string)
 
-console.log('url1', url1.value)
-console.log('url2', url2.value)
 
-const { data: baseRecipe, pending, error } = await useAsyncData(
+// const { data: recipe1, pending, error } = await useAsyncData(
+const { data: recipe1 } = await useAsyncData(
   'recipe1',
   () => $fetch('https://recipe-scraper-pink.vercel.app/scrape', {
     params: {
@@ -15,33 +16,33 @@ const { data: baseRecipe, pending, error } = await useAsyncData(
   })
 )
 
-console.log('baseRecipe', baseRecipe.value)
+const { data: recipe2 } = await useAsyncData(
+  'recipe2',
+  () => $fetch('https://recipe-scraper-pink.vercel.app/scrape', {
+    params: {
+      url: url2.value
+    }
+  })
+)
+
+console.log('recipe1', recipe1.value)
+
+const parsedIngredients1 = recipe1.value.recipeIngredient.map(ingredient => {
+  return parseIngredient(ingredient, 'en')
+})
+
+const parsedIngredients2 = recipe2.value.recipeIngredient.map(ingredient => {
+  return parseIngredient(ingredient, 'en')
+})
+
+// console.log('parsedIngredients1', parsedIngredients1)
+// console.log('parsedIngredients2', parsedIngredients2)
 </script>
 
 <template>
   <section class="section">
 
-    <h1 class="title">
-      Compare
-    </h1>
-
-    <div class="columns">
-      <div v-if="baseRecipe" class="column is-6">
-          
-          <p v-for="ingredient in baseRecipe.recipeIngredient" :key="ingredient" class="ingredient">
-            {{ ingredient }}
-          </p>
-
-      </div>
-
-      <div class="column is-6">
-        <Second
-          v-if="baseRecipe"
-          :url="url2"
-          :base="baseRecipe.recipeIngredient"
-        />
-      </div>
-    </div>
+    <Reorder :ingredients1="parsedIngredients1" :ingredients2="parsedIngredients2" />
 
   </section>
 </template>

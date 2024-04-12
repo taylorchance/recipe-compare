@@ -1,69 +1,46 @@
 <script setup lang="ts">
 const props = defineProps<{
-  array1: string[],
-  array12: string[]
+  ingredients1: object[],
+  ingredients2: object[]
 }>()
 
-import { stringSimilarity } from 'string-similarity-js'
+const reorder = (arr1, arr2) => {
+  let ignoreWords = ['chopped', 'red', 'white', ')', '(']
 
-const reorderArrays = (array1, array2) => {
-  // return [[], []]
-  const reorderedArray1 = [];
-  const reorderedArray2 = [];
+  arr1.forEach(item1 => {
+    const wordsArray1 = item1.ingredient.toLowerCase().split(" ")
+    arr2.forEach(item2 => {
+      const wordsArray2 = item2.ingredient.toLowerCase().split(" ")
+      // const intersection = wordsArray2.filter(word => wordsArray1.includes(word))
+      const intersection = wordsArray2.filter(word => wordsArray1.includes(word) && !ignoreWords.includes(word))
 
-  array1.forEach(item1 => {
+      intersection.forEach(word => ignoreWords.push(word))
 
-    console.log('array1', array1)
+      if (intersection.length) {
+        item1.matches = intersection
+        item2.matches = intersection
+      }
+    })
+  })
 
-    const match1 = array2.find(item2 => {
-      const similarity = stringSimilarity(item1.ingredient.toLowerCase(), item2.ingredient.toLowerCase());
-      return similarity >= 0.4;
-    });
-    if (match1) {
-      // reorderedArray1.unshift({ ingredient: item1.ingredient });
-      reorderedArray1.unshift(item1)
-    } else {
-      reorderedArray1.push(item1);
-    }
-  });
+  return [
+    arr1,
+    arr2
+  ]
+}
 
-  array2.forEach(item2 => {
-    const match2 = array1.find(item1 => {
-      const similarity = stringSimilarity(item2.ingredient.toLowerCase(), item1.ingredient.toLowerCase());
-      return similarity >= 0.4;
-    });
-    if (match2) {
-      reorderedArray2.unshift({ ingredient: item2.ingredient });
-      // reorderedArray1.unshift(item2)
-    } else {
-      reorderedArray2.push(item2);
-    }
-  });
+const [reorderedIngredients1, reorderedIngredients2] = reorder(props.ingredients1, props.ingredients2)
 
-  return [reorderedArray1, reorderedArray2];
-};
-
-const [reorderedArray1, reorderedArray2] = reorderArrays(props.array1, props.array2)
-console.log('reorderedArray1', reorderedArray1)
-console.log('reorderedArray2', reorderedArray2)
 </script>
 
 <template>
   <h1 class="title has-text-centered mb-3">Reordered:</h1>
   <div class="columns">
     <div class="column">
-      <Parse
-        v-for="ingredient in reorderedArray1"
-        :key="ingredient.ingredient"
-        :parsed="ingredient"
-      />
+      <List :list="reorderedIngredients1" />
     </div>
     <div class="column">
-      <Parse
-        v-for="ingredient in reorderedArray2"
-        :key="ingredient.ingredient"
-        :parsed="ingredient"
-      />
+      <List :list="reorderedIngredients2" />
     </div>
   </div>
 </template>

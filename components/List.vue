@@ -11,7 +11,12 @@ const sortedList = props.list.sort((a, b) => {
 </script>
 
 <template>
-  <Parse
+  <!-- <Parse
+    v-for="ingredient in sortedList"
+    :key="ingredient.ingredient"
+    :parsed="ingredient"
+  /> -->
+  <Parsed2
     v-for="ingredient in sortedList"
     :key="ingredient.ingredient"
     :parsed="ingredient"

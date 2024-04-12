@@ -5,10 +5,12 @@ const props = defineProps<{
 
 const { matches } = props.parsed
 
-console.log('matchCount', props.parsed.matchCount)
-
 const wrappedIngrediant = (ingredient) => {
-  // const ignoreWords = ['dry', 'chopped'];
+  // console.log('matches', matches)
+
+  // console.log('ingredient', ingredient)
+  // console.log('matches.join('|')', matches.join('|'))
+  // return ingredient
 
   if (matches) {
     const regex = new RegExp(`\\b(${matches.join('|')})\\b`, 'gi');
@@ -19,7 +21,6 @@ const wrappedIngrediant = (ingredient) => {
 </script>
 
 <template>
-  <!-- <p class="ingredient">{{ ingredient }}</p> -->
   <p v-if="parsed" class="ingredient">
     <span v-if="parsed.quantity" class="quantity">
       {{ parsed.quantity }}
@@ -33,23 +34,3 @@ const wrappedIngrediant = (ingredient) => {
 
   </p>
 </template>
-
-<style>
-p.ingredient {
-  padding: .75rem 0;
-}
-
-p.ingredient + p.ingredient {
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.quantity, .unit {
-  font-weight: 600;
-  margin-right: 4px;
-}
-
-span.ingredient span {
-  font-style: italic;
-  color: green;
-}
-</style>
