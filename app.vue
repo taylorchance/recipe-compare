@@ -19,7 +19,8 @@ p.ingredient + p.ingredient {
 }
 
 span.ingredient span {
-  font-style: italic;
-  color: green;
+  color: rgb(22, 70, 48);
+  background-color: rgb(239, 250, 245);
+  padding: 2px 3px;
 }
 </style>
