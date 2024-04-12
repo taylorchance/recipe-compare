@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
-  parsed: object
+  parsed: object;
+  multiplier: number;
 }>()
 
 const { matches } = props.parsed
@@ -19,7 +20,7 @@ const wrapped = (string) => {
 <template>
   <p v-if="parsed" class="ingredient">
     <span v-if="parsed.quantity" class="quantity">
-      {{ parsed.quantity }}
+      {{ parsed.quantity * multiplier }}
     </span>
 
     <span v-if="parsed.unit" class="unit">
@@ -27,6 +28,5 @@ const wrapped = (string) => {
     </span>
 
     <span v-html="wrapped(parsed.ingredient)" class="ingredient"></span>
-
   </p>
 </template>

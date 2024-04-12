@@ -12,7 +12,7 @@ const originalAmount = ref<number>(0)
 
 if (typeof props.servings === 'number') {
   amount.value = props.servings
-  originalAmount.value =props.servings
+  originalAmount.value = props.servings
 } else {
   const servingsObj = parse(typeof props.servings === 'string' ? props.servings : props.servings[0])
   amount.value = Number(servingsObj.amount)
@@ -28,42 +28,17 @@ watch(amount, (newAmount) => {
 <template>
   <div class="field has-addons mr-4">
     <div class="control">
-      <button class="button" @click="amount--">
-        <span class="icon">
-          <i class="fa-solid fa-minus"></i>
-        </span>
+      <button class="button is-small is-rounded" @click="amount--">
+        -
       </button>
     </div>
     <div class="control">
-      <p class="is-size-5 my-1">{{ amount }} servings</p>
+      <p class="my-1">{{ amount }} servings</p>
     </div>
     <div class="control">
-      <button class="button" @click="amount++">
-        <span class="icon">
-          <i class="fa-solid fa-plus"></i>
-        </span>
+      <button class="button is-small is-rounded" @click="amount++">
+        +
       </button>
     </div>
   </div>
 </template>
-
-<style scoped>
-.field {
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: .5rem;
-  white-space: nowrap;
-  touch-action: manipulation;
-}
-
-.field .button {
-  color: #000000;
-  background: none;
-  box-shadow: none;
-  border: 0;
-  height: 100%;
-  width: 40px;
-  padding: 0;
-  max-height: 40px;
-  cursor: pointer;
-}
-</style>
