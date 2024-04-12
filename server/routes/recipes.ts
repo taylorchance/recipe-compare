@@ -1,4 +1,3 @@
-// import { parseIngredient, parseInstruction } from '@jlucaspains/sharp-recipe-parser'
 import { parseIngredient } from '@jlucaspains/sharp-recipe-parser'
 
 const findMatches = (arr1, arr2) => {
@@ -12,7 +11,6 @@ const findMatches = (arr1, arr2) => {
       const intersection = wordsArray2.filter(word => wordsArray1.includes(word) && !ignoreWords.includes(word))
 
       intersection.forEach(word => ignoreWords.push(word))
-
       if (intersection.length) {
         item1.matches = intersection
         item2.matches = intersection
@@ -45,20 +43,12 @@ export default defineEventHandler(async (event ) => {
     }
   })
 
-  const ingredients1 = recipe1.recipeIngredient.map(ingredient => 
-    parseIngredient(ingredient, 'en')
-  )
-  console.log('ingredients1', ingredients1)
-  
-  const ingredients2 = recipe2.recipeIngredient.map(ingredient => 
-    parseIngredient(ingredient, 'en')
-  )
-
+  const ingredients1 = recipe1.recipeIngredient.map(ingredient => parseIngredient(ingredient, 'en'))
+  const ingredients2 = recipe2.recipeIngredient.map(ingredient => parseIngredient(ingredient, 'en'))
   const [matchedIngredients1, matchedIngredients2] = findMatches(ingredients1, ingredients2)  
 
   return [
-    { ingredients: matchedIngredients1, ...recipe1 },
-    { ingredients: matchedIngredients2, ...recipe2 }
-
+    { ...recipe1, ingredients: matchedIngredients1 },
+    { ...recipe2, ingredients: matchedIngredients2 }
   ]
 })
