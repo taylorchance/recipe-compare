@@ -11,12 +11,8 @@
   },
   "dependencies": {
     "@jlucaspains/sharp-recipe-parser": "^1.2.0",
-    "fastest-levenshtein": "^1.0.16",
     "ingredients-parser": "^1.4.0",
-    "natural": "^7.0.0",
     "nuxt": "^3.11.2",
-    "string-similarity": "^4.0.4",
-    "string-similarity-js": "^2.1.4",
     "tinyduration": "^3.3.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
