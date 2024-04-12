@@ -28,16 +28,20 @@ watch(amount, (newAmount) => {
 <template>
   <div class="field has-addons mr-4">
     <div class="control">
-      <button class="button is-small is-rounded" @click="amount--">
-        -
+      <button class="button" @click="amount--">
+        <span class="icon">
+          <i class="fa-solid fa-minus"></i>
+        </span>
       </button>
     </div>
     <div class="control">
-      <p class="my-1">{{ amount }} servings</p>
+      <p class="is-size-5 my-1">{{ amount }} servings</p>
     </div>
     <div class="control">
-      <button class="button is-small is-rounded" @click="amount++">
-        +
+      <button class="button" @click="amount++">
+        <span class="icon">
+          <i class="fa-solid fa-plus"></i>
+        </span>
       </button>
     </div>
   </div>

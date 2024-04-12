@@ -5,11 +5,12 @@ const props = defineProps<{
 }>()
 
 const { matches } = props.parsed
-
-const wrapped = (string) => {
+const wrapped = (string: string) => {
   const cleanString = string.replace(')', '')
 
   if (matches) {
+    console.log('matches', matches[0])
+
     const regex = new RegExp(`\\b(${matches.join('|')})\\b`, 'gi')
     return cleanString.replace(regex, '<span>$1</span>')
   }

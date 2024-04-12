@@ -44,4 +44,23 @@ span.ingredient span {
   background-color: rgb(239, 250, 245);
   padding: 2px 3px;
 }
+
+.field {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: .5rem;
+  white-space: nowrap;
+  touch-action: manipulation;
+}
+
+.field .button {
+  color: #000000;
+  background: none;
+  box-shadow: none;
+  border: 0;
+  height: 100%;
+  width: 40px;
+  padding: 0;
+  max-height: 40px;
+  cursor: pointer;
+}
 </style>
