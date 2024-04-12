@@ -5,6 +5,27 @@
 </template>
 
 <style>
+.loader-wrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+.loader {
+  width: 4em;
+  height: 4em;
+  border-width: 4px;
+  border-left-color: rgba(0, 0, 0, 0.2);
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+}
+
 p.ingredient {
   padding: .75rem 0;
 }
