@@ -63,12 +63,10 @@ const [matchedIngredients1, matchedIngredients2] = findMatches(ingredients1, ing
     <div class="columns">
       <div class="column">
         <SortIngredients :recipe="recipe1" :ingredients="matchedIngredients1">
-          <!-- <Duration :duration="recipe1.totalTime" /> -->
         </SortIngredients>
       </div>
       <div class="column">
         <SortIngredients :recipe="recipe2" :ingredients="matchedIngredients2">
-          <!-- <Duration :duration="recipe1.totalTime" /> -->
         </SortIngredients>
       </div>
     </div>
