@@ -6,6 +6,7 @@ const props = defineProps<{
 console.log('recipe', props.recipe)
 
 const multiplier = ref<number>(1)
+const isMetric = ref<boolean>(false)
 </script>
 
 <template>
@@ -28,12 +29,22 @@ const multiplier = ref<number>(1)
         :servings="recipe.recipeYield"
         @updateMultiplier="multiplier = $event"
       />
+
+      <div class="select ml-4">
+        <select v-model="isMetric">
+          <option :value="false">Units</option>
+          <option :value="true">Metric</option>
+          <!-- <option :value="2">Imperial</option> -->
+        </select>
+      </div>
+
     </div>
     <Ingredient
       v-for="ingredient in recipe.ingredients"
       :key="ingredient.ingredient"
       :parsed="ingredient"
       :multiplier="multiplier"
+      :isMetric="isMetric"
     />
   </div>
 </template>

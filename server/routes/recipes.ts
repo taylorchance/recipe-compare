@@ -59,8 +59,8 @@ export default defineEventHandler(async (event ) => {
     }
   })
 
-  const ingredients1 = recipe1.recipeIngredient.map(ingredient => parseIngredient(ingredient, 'en'))
-  const ingredients2 = recipe2.recipeIngredient.map(ingredient => parseIngredient(ingredient, 'en'))
+  const ingredients1 = recipe1.recipeIngredient.map(ingredient => parseIngredient(ingredient.replace('/', 'or'), 'en'))
+  const ingredients2 = recipe2.recipeIngredient.map(ingredient => parseIngredient(ingredient.replace('/', 'or'), 'en'))
 
   const [matchedIngredients1, matchedIngredients2] = findMatches(ingredients1, ingredients2)
   
