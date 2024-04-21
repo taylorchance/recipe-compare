@@ -21,7 +21,7 @@ const formattedDuration = formatDuration(durationObj)
 </script>
 
 <template>
-  <p class="is-size-5" style="white-space: nowrap;">
+  <p class="mt-2" style="white-space: nowrap;">
     <span class="icon">
       <i class="fa-regular fa-clock"></i>
     </span>

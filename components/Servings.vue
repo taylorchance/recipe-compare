@@ -26,7 +26,7 @@ watch(amount, (newAmount) => {
 </script>
 
 <template>
-  <div class="field has-addons mr-4 mb-0">
+  <div class="field has-addons has-text-centered">
     <div class="control">
       <button class="button" @click="amount--">
         <span class="icon">
@@ -35,7 +35,7 @@ watch(amount, (newAmount) => {
       </button>
     </div>
     <div class="control">
-      <p class="is-size-5 my-1">{{ amount }} servings</p>
+      <p class="my-2">{{ amount }} servings</p>
     </div>
     <div class="control">
       <button class="button" @click="amount++">

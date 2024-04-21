@@ -2,6 +2,7 @@
 const route = useRoute()
 const url1 = computed(() => route.query.url1 as string)
 const url2 = computed(() => route.query.url2 as string)
+const isPending = inject('isPending')
 
 const { data, pending, error } = await useAsyncData(
   'data',
@@ -12,12 +13,14 @@ const { data, pending, error } = await useAsyncData(
     }
   })
 )
+
+isPending.value = false
 </script>
 
 <template>
   <section class="section">
     <div class="container">
-      <div class="columns is-mobile" style="gap: 4rem;">
+      <div class="columns is-mobile">
         <div v-for="recipe in data" :key="recipe.url" class="column">
           <Recipe :recipe="recipe" />
         </div>
@@ -25,3 +28,13 @@ const { data, pending, error } = await useAsyncData(
     </div>
   </section>
 </template>
+
+<style scoped>
+.column {
+  padding-inline: 4vw;
+}
+
+.column:first-child {
+  border-right: 1px solid var(--bulma-border);
+}
+</style>
