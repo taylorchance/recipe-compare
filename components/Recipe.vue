@@ -16,15 +16,16 @@ const textIncrement = inject('textIncrement')
       {{ recipe.name }}
     </h1>
 
-    <a :href="`https://recipe-scraper-pink.vercel.app/recipe?url=${recipe.url}`" class="button is-ghost p-0 mb-3" target="_blank">
-      <span>View on Fetch Recipes</span>
+    <a :href="`https://recipe-scraper-pink.vercel.app/recipe?url=${recipe.url}`" class="button is-size-7 is-ghost p-0 mb-3" target="_blank">
+      <!-- <span>View on Fetch Recipes</span> -->
+      <span>View full instructions</span>
       <span class="icon">
         <i class="fa-solid fa-arrow-up-right-from-square"></i>
       </span>
     </a>
 
     <div class="columns">
-      <div class="column pb-0">
+      <div class="column pb-0 is-flex-grow-0">
         <Duration
           v-if="recipe.totalTime"
           :duration="recipe.totalTime"

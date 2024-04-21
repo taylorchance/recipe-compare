@@ -1,9 +1,26 @@
 <script setup lang="ts">
 const url1 = ref<string>('')
 const url2 = ref<string>('')
+const showModal = ref<boolean>(false)
 const isPending = inject('isPending')
 
+const IsUrl = (string: string) => {
+  return /^https?:\/\/([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/.test(string)
+}
+
 const handleSubmit = async () => {
+  if (!IsUrl(url1.value)) {
+    showModal.value = true
+    url1.value = ''
+    return
+  }
+
+  if (!IsUrl(url2.value)) {
+    showModal.value = true
+    url2.value = ''
+    return
+  }
+
   isPending.value = true
   await navigateTo({
     path: '/compare',
@@ -43,7 +60,7 @@ const handleSubmit = async () => {
             <div class="field">
               <input class="input" placeholder="Paste second recipe URL here" v-model="url2" />
             </div>
-            <button class="button is-black is-fullwidth" @click="handleSubmit()" :disabled="!url1 || !url2">
+            <button class="button is-black is-fullwidth" @click="handleSubmit()">
               Compare recipes
             </button>
           </div>
@@ -52,4 +69,19 @@ const handleSubmit = async () => {
       </div>
     </div>
   </section>
+
+  <div v-if="showModal" class="modal is-active">
+    <div class="modal-background" @click="showModal = false"></div>
+    <div class="modal-content">
+      <div class="box">
+        <h3 class="title is-4">
+          Thats not a valid URL
+        </h3>
+
+        <button class="button mt-3" @click="showModal = false">
+          Got it
+        </button>
+      </div>
+    </div>
+  </div>
 </template>

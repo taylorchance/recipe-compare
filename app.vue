@@ -57,7 +57,7 @@ p.ingredient {
 }
 
 p.ingredient + p.ingredient {
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-top: 1px solid var(--bulma-border);
 }
 
 .quantity, .unit {
@@ -107,5 +107,19 @@ span.ingredient span {
 :root.theme-dark .button.is-black {
   --bulma-button-background-l: 85%;
   --bulma-button-color-l: var(--bulma-white-invert-l);
+}
+
+.modal {
+  --bulma-modal-background-background-color: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(6px);
+}
+
+.modal-content {
+  width: 480px;
+  max-width: 90vw;
+}
+
+:root.theme-dark .modal {
+  --bulma-modal-background-background-color: rgba(64, 64, 64, 0.25);
 }
 </style>
