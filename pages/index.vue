@@ -39,7 +39,7 @@ const handleSubmit = async () => {
     <div class="hero-body">
       <div class="container">
 
-        <div class="columns is-centered is-vcentered">
+        <div class="columns is-centered is-vcentered" style="gap: 3rem;">
           <div class="column is-6">
             <h1 class="title mb-3">
               Recipe Compare

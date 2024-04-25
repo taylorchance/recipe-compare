@@ -27,11 +27,11 @@ const isDarkMode = inject('isDarkMode')
       </div>
     </div>
 
-    <button class="button" @click="isDarkMode = !isDarkMode">
+    <!-- <button class="button" @click="isDarkMode = !isDarkMode">
       <span class="icon">
         <i :class="`fa-solid fa-${!isDarkMode ? 'sun' : 'moon'}`"></i>
       </span>
-    </button>
+    </button> -->
   </div>
 </template>
 

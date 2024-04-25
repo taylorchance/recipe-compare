@@ -65,9 +65,14 @@ p.ingredient + p.ingredient {
   margin-right: 4px;
 }
 
-span.ingredient span {
+span.ingredient span.is-success {
   color: rgb(22, 70, 48);
   background-color: rgb(239, 250, 245);
+  padding: 2px 3px;
+}
+
+span.ingredient span.is-warning {
+  background-color: rgb(255, 250, 248);
   padding: 2px 3px;
 }
 

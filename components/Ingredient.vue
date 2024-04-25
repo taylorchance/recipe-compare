@@ -10,13 +10,17 @@ const quantity = ref<number>(props.parsed.quantity)
 const minQuantity = ref<number>(props.parsed.minQuantity)
 const maxQuantity = ref<number>(props.parsed.maxQuantity)
 
-const { ingredient, matches } = props.parsed
+const { ingredient, matches, partials } = props.parsed
 
 const wrapped = (string: string) => {
   let cleanString = string.replace(')', '')
   if (matches) {
     const regex = new RegExp(`\\b(${matches.join('|')})\\b`, 'gi')
-    return cleanString.replace(regex, '<span>$1</span>')
+    cleanString = cleanString.replace(regex, '<span class="is-success">$1</span>')
+  }
+  if (partials) {
+    const regex = new RegExp(`\\b(${partials.join('|')})\\b`, 'gi')
+    cleanString = cleanString.replace(regex, '<span class="is-warning">$1</span>')
   }
   return cleanString
 }

@@ -1,7 +1,7 @@
 import { parseIngredient } from '@jlucaspains/sharp-recipe-parser'
 
 const findMatches = (arr1: IParsedIngedient[], arr2: IParsedIngedient[]) => {
-  let ignoreWords = ['chopped', 'red', 'white', ')', '(']
+  let ignoreWords = ['chopped', 'red', 'white', ')', '(', 'fresh', 'freshly', 'powder', 'ground']
 
   arr1.forEach(item1 => {
     const wordsArray1 = item1.ingredient.toLowerCase().split(" ")
@@ -9,14 +9,17 @@ const findMatches = (arr1: IParsedIngedient[], arr2: IParsedIngedient[]) => {
       const wordsArray2 = item2.ingredient.toLowerCase().split(" ")
       // const matches = wordsArray2.filter(word => wordsArray1.includes(word))
       const matches = wordsArray2.filter((word: string) => wordsArray1.includes(word) && !ignoreWords.includes(word))
+      const partials = wordsArray2.filter((word: string) => wordsArray1.includes(word) && ignoreWords.includes(word))
 
       matches.forEach((word: string) => ignoreWords.push(word))
       if (matches.length) {
         item1.matches = matches
         item2.matches = matches
       }
-      // item1.matches = matches.length ? matches : []
-      // item2.matches = matches.length ? matches : []
+      if (partials.length) {
+        item1.partials = partials
+        item2.partials = partials
+      }
     })
   })
 
@@ -61,6 +64,11 @@ export default defineEventHandler(async (event ) => {
 
   const ingredients1 = recipe1.recipeIngredient.map(ingredient => parseIngredient(ingredient.replace('/', 'or'), 'en'))
   const ingredients2 = recipe2.recipeIngredient.map(ingredient => parseIngredient(ingredient.replace('/', 'or'), 'en'))
+
+  // return [
+  //   { ...recipe1, ingredients: ingredients1 },
+  //   { ...recipe2, ingredients: ingredients2 },
+  // ]
 
   const [matchedIngredients1, matchedIngredients2] = findMatches(ingredients1, ingredients2)
   
