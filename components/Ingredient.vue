@@ -2,14 +2,10 @@
 const props = defineProps<{
   parsed: IParsedIngedient;
   multiplier: number;
+  conversionTable: null | { [key: string]: string };
 }>()
 
-const unit = ref<string>(props.parsed.unit)
-const quantity = ref<number>(props.parsed.quantity)
-const minQuantity = ref<number>(props.parsed.minQuantity)
-const maxQuantity = ref<number>(props.parsed.maxQuantity)
-
-const { ingredient, matches, partials } = props.parsed
+const { unit, quantity, minQuantity, maxQuantity, ingredient, matches, partials } = props.parsed
 
 const wrapped = (string: string) => {
   let cleanString = string.replace(')', '')
@@ -23,20 +19,36 @@ const wrapped = (string: string) => {
   }
   return cleanString
 }
+
+const getAmount = (amount: number): number => {
+  let unitConversionAmount = amount
+  if (props.conversionTable && props.conversionTable[unit] && props.conversionTable[props.parsed.unit] !== props.parsed.unit) {
+    const { getConvertedAmount, getDensity } = useUnits()
+    const density = getDensity(props.parsed.ingredient)
+    unitConversionAmount = getConvertedAmount(amount, props.parsed.unit, props.conversionTable[props.parsed.unit], density)
+  }
+  return Math.round(unitConversionAmount * props.multiplier * 100) / 100
+}
+
+const getUnit = (unit: string): string => {
+  if (props.conversionTable && props.conversionTable[unit] && props.conversionTable[unit] !== unit) {
+    return props.conversionTable[unit]
+  }
+  return unit
+}
 </script>
 
 <template>
   <p class="ingredient">
     <span v-if="minQuantity < maxQuantity" class="quantity">
-      {{ Math.round(minQuantity * multiplier * 100) / 100 }} to {{ Math.round(maxQuantity * multiplier * 100) / 100 }}
+      {{ getAmount(minQuantity) }} to {{ getAmount(maxQuantity) }}
     </span>
-
     <span v-else-if="quantity" class="quantity">
-      {{ Math.round(quantity * multiplier * 100) / 100 }}
+      {{ getAmount(quantity) }}
     </span>
 
     <span v-if="unit" class="unit">
-      {{ unit }}
+      {{ getUnit(unit) }}
     </span>
 
     <span v-html="wrapped(ingredient)" class="ingredient"></span>

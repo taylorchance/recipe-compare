@@ -48,15 +48,12 @@ const textIncrement = inject('textIncrement')
       </div>
     </div>
 
-
-    conversionTable? {{ conversionTable }}
-
-
     <Ingredient
       v-for="ingredient in recipe.ingredients"
       :key="ingredient.ingredient"
       :parsed="ingredient"
       :multiplier="multiplier"
+      :conversionTable="conversionTable"
       :style="{ fontSize: `calc(${textIncrement}rem)` }"
     />
 

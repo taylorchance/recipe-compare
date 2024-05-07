@@ -65,12 +65,7 @@ export const useUnits = () => {
       measure: 'metric',
       conversion: 35.274
     }
-  }  
-
-  // const UNIT_TYPES: { [key: string]: string[] } = {
-  //   volume: ['teaspoon', 'tablespoon', 'floz', 'cup', 'pint', 'quart', 'gallon', 'milliliter', 'liter'],
-  //   weight: ['ounce', 'pound', 'gram', 'kilogram']
-  // }
+  }
   
   const getDensity = (target: string) => {
     const calculateSimilarity = (words1: string[], words2: string[]) => {
@@ -95,8 +90,7 @@ export const useUnits = () => {
     return bestMatch.density
   }
 
-
-  const convertUnits = (amount: number, fromUnit: string, toUnit: string, density?: number): number => {
+  const getConvertedAmount = (amount: number, fromUnit: string, toUnit: string, density?: number): number => {
     const isWeight = (unit: string): boolean => {
       if (UNITS.hasOwnProperty(unit)) {
         return (UNITS[unit].type == 'weight')
@@ -146,10 +140,8 @@ export const useUnits = () => {
   }
 
   return {
-    // UNITS,
-    // UNIT_TYPES,
     getDensity,
-    convertUnits,
+    getConvertedAmount,
   }
 }
 
