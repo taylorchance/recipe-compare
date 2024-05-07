@@ -29,8 +29,8 @@ declare global {
     recipeYield: string | string[];
     recipeCuisine: string | string[];
     recipeInstructions: IRecipeInstruction[];
-    recipeIngredient: string[];
-    // ingredients: IParsedIngedient[]
+    // recipeIngredient: string[];
+    ingredients: IParsedIngedient[]
   }
 }
 

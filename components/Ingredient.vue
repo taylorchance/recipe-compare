@@ -2,7 +2,6 @@
 const props = defineProps<{
   parsed: IParsedIngedient;
   multiplier: number;
-  isMetric: boolean;
 }>()
 
 const unit = ref<string>(props.parsed.unit)
@@ -24,39 +23,6 @@ const wrapped = (string: string) => {
   }
   return cleanString
 }
-
-const poundsArr = ['lb', 'lbs', 'pound', 'pounds']
-const cupsArr = ['cup', 'cups']
-
-watch(() => props.isMetric, (isMetric) => {
-  if (isMetric) {
-    if (poundsArr.includes(unit.value)) {
-      unit.value = 'g'
-      quantity.value = quantity.value * 454
-    }
-    if (cupsArr.includes(unit.value)) {
-      // const densityMatch = findMatches(ingredient, mappedFoodDensities)
-      // console.log('densityMatch', densityMatch)
-      
-      // const density = foodDensities.find(food => food.name === densityMatch)
-
-      const density = getDensity(ingredient)
-      console.log('density', density)
-      // density.unit = 'tits'
-      // density.quantity = 555
-
-      unit.value = density.unit
-      quantity.value = quantity.value * density.density
-      minQuantity.value = minQuantity.value * density.density
-      maxQuantity.value = maxQuantity.value * density.density
-    }
-  } else {
-    unit.value = props.parsed.unit
-    quantity.value = props.parsed.quantity
-    minQuantity.value = props.parsed.minQuantity
-    maxQuantity.value = props.parsed.maxQuantity
-  }
-}, { immediate: true })
 </script>
 
 <template>

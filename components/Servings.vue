@@ -26,7 +26,7 @@ watch(amount, (newAmount) => {
 </script>
 
 <template>
-  <div class="field has-addons has-text-centered">
+  <div class="field has-addons is-justify-content-center">
     <div class="control">
       <button class="button" @click="amount--">
         <span class="icon">
