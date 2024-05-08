@@ -87,10 +87,11 @@ export const useUnits = () => {
         bestMatch = item
       }
     }
-    return bestMatch.density
+    console.log('getDensity', bestMatch)
+    return bestMatch
   }
 
-  const getConvertedAmount = (amount: number, fromUnit: string, toUnit: string, density?: number): number => {
+  const getConvertedAmount = (amount: number, fromUnit: string, toUnit: string, ingredient: string): number => {
     const isWeight = (unit: string): boolean => {
       if (UNITS.hasOwnProperty(unit)) {
         return (UNITS[unit].type == 'weight')
@@ -107,32 +108,33 @@ export const useUnits = () => {
       }
     }
 
-    if (!UNITS.hasOwnProperty(fromUnit) || !UNITS.hasOwnProperty(toUnit)) {
+    if (!UNITS.hasOwnProperty(fromUnit) || !UNITS.hasOwnProperty(toUnit) || fromUnit === toUnit) {
       return 1
     }
 
     let newAmount = amount
 
-    if (fromUnit != toUnit) {
-      if ((isWeight(fromUnit) && isWeight(toUnit)) || (isVolume(fromUnit) && isVolume(toUnit))) {
-        newAmount = amount * UNITS[fromUnit].conversion / UNITS[toUnit].conversion
-      } else {
-        if ((density == undefined) || (density == 0)) {
-          density = 1.0
-        }
-        if (isVolume(toUnit)) {
-          // convert fromUnit to grams
-          let tempGramWeight = (amount / UNITS['gram'].conversion) * UNITS[fromUnit].conversion
-          let tempVolume = tempGramWeight / density
-          // now it's a vol to vol conversion
-          newAmount = (tempVolume / UNITS[toUnit].conversion) * UNITS['milliliter'].conversion
-        } else if (isWeight(toUnit)) {
-          // convert fromUnit to milliliters
-          let tempLVolume = (amount / UNITS['milliliter'].conversion) * UNITS[fromUnit].conversion
-          let tempWeight = tempLVolume * density
-          // now it's a weight to weight conversion
-          newAmount = (tempWeight / UNITS[toUnit].conversion) * UNITS['gram'].conversion
-        }
+    if ((isWeight(fromUnit) && isWeight(toUnit)) || (isVolume(fromUnit) && isVolume(toUnit))) {
+      newAmount = amount * UNITS[fromUnit].conversion / UNITS[toUnit].conversion
+    } else {
+      let { density } = getDensity(ingredient)
+      if ((density == undefined) || (density == 0)) {
+        density = 1.0
+      }
+      if (isVolume(toUnit)) {
+        // convert fromUnit to grams
+        console.log('convert fromUnit to grams')
+        let tempGramWeight = (amount / UNITS['gram'].conversion) * UNITS[fromUnit].conversion
+        let tempVolume = tempGramWeight / density
+        // now it's a vol to vol conversion
+        newAmount = (tempVolume / UNITS[toUnit].conversion) * UNITS['milliliter'].conversion
+      } else if (isWeight(toUnit)) {
+        // convert fromUnit to milliliters
+        console.log('convert fromUnit to milliliters')
+        let tempLVolume = (amount / UNITS['milliliter'].conversion) * UNITS[fromUnit].conversion
+        let tempWeight = tempLVolume * density
+        // now it's a weight to weight conversion
+        newAmount = (tempWeight / UNITS[toUnit].conversion) * UNITS['gram'].conversion
       }
     }
 
@@ -140,7 +142,6 @@ export const useUnits = () => {
   }
 
   return {
-    getDensity,
     getConvertedAmount,
   }
 }

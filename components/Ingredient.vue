@@ -24,8 +24,9 @@ const getAmount = (amount: number): number => {
   let unitConversionAmount = amount
   if (props.conversionTable && props.conversionTable[unit] && props.conversionTable[props.parsed.unit] !== props.parsed.unit) {
     const { getConvertedAmount, getDensity } = useUnits()
-    const density = getDensity(props.parsed.ingredient)
-    unitConversionAmount = getConvertedAmount(amount, props.parsed.unit, props.conversionTable[props.parsed.unit], density)
+    // const density = getDensity(props.parsed.ingredient)
+    // console.log('density', density)
+    unitConversionAmount = getConvertedAmount(amount, props.parsed.unit, props.conversionTable[props.parsed.unit], props.parsed.ingredient)
   }
   return Math.round(unitConversionAmount * props.multiplier * 100) / 100
 }
