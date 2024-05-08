@@ -21,7 +21,16 @@ watch(isDarkMode, () => {
     <DarkMode />
 
     <div v-if="isPending" class="loader-wrapper">
+
+      <p class="heading mb-3">Powered by</p>
       <div class="loader is-loading"></div>
+
+      <figure class="image is-128x128">
+        <img src="~/assets/gettherecipe.svg" />
+      </figure>
+
+      <!-- <p class="mt-5">loading recipes...</p> -->
+
     </div>
   </div>
 </template>
@@ -39,17 +48,35 @@ watch(isDarkMode, () => {
   bottom: 0;
   z-index: 999;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(4px);
 }
 
 .loader {
-  width: 4em;
-  height: 4em;
+  width: 100px;
+  height: 100px;
   border-width: 4px;
   border-left-color: rgba(0, 0, 0, 0.2);
   border-bottom-color: rgba(0, 0, 0, 0.2);
+}
+
+.loader-wrapper .image {
+  position: absolute;
+  /* top: 30px; */
+  top: 56px;
+  bottom: 0;
+  margin: auto;
+}
+
+.heading {
+  text-transform: uppercase;
+  font-size: 15px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  line-height: 1;
 }
 
 p.ingredient {

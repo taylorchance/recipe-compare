@@ -1,4 +1,4 @@
-export const useUnits = () => {
+export const getUnitConversion = (amount: number, fromUnit: string, toUnit: string, ingredient: string): number => {
   const UNITS: { [key: string]: { type: string; measure: string; conversion: number } } = {
     teaspoon: {
       type: 'volume',
@@ -141,9 +141,7 @@ export const useUnits = () => {
     return newAmount
   }
 
-  return {
-    getConvertedAmount,
-  }
+  return getConvertedAmount(amount, fromUnit, toUnit, ingredient)
 }
 
 const foodDensities = [

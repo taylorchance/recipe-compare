@@ -2,7 +2,7 @@
 const url1 = ref<string>('')
 const url2 = ref<string>('')
 const showModal = ref<boolean>(false)
-const isPending = inject('isPending')
+const isPending = inject('isPending') as Ref<boolean>
 
 const IsUrl = (string: string) => {
   return /^https?:\/\/([\w-]+\.)+[\w-]+(\/[\w-./?%&=]*)?$/.test(string)

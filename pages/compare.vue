@@ -2,7 +2,7 @@
 const route = useRoute()
 const url1 = computed(() => route.query.url1 as string)
 const url2 = computed(() => route.query.url2 as string)
-const isPending = inject('isPending')
+const isPending = inject('isPending') as Ref<boolean>
 
 const { data, pending, error } = await useAsyncData(
   'data',
