@@ -30,7 +30,7 @@ declare global {
     recipeCuisine: string | string[];
     recipeInstructions: IRecipeInstruction[];
     recipeIngredient: string[];
-    // ingredients: IParsedIngedient[]
+    ingredients: IParsedIngedient[]
   }
 }
 

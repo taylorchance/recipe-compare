@@ -6,7 +6,10 @@ const props = defineProps<{
 console.log('recipe', props.recipe)
 
 const multiplier = ref<number>(1)
-const isMetric = ref<boolean>(false)
+
+const showUnitsModal = ref<boolean>(false)
+const conversionTable = ref<null | { [key: string]: string }>(null)
+
 const textIncrement = inject('textIncrement')
 </script>
 
@@ -39,12 +42,9 @@ const textIncrement = inject('textIncrement')
         />
       </div>
       <div class="column">
-        <div class="select is-fullwidth">
-          <select v-model="isMetric">
-            <option :value="false">Units</option>
-            <option :value="true">Metric</option>
-          </select>
-        </div>
+        <button class="button is-fullwidth" style="height: 42px; box-shadow: none;" @click="showUnitsModal = true">
+          Convert Units
+        </button>
       </div>
     </div>
 
@@ -53,8 +53,16 @@ const textIncrement = inject('textIncrement')
       :key="ingredient.ingredient"
       :parsed="ingredient"
       :multiplier="multiplier"
-      :isMetric="isMetric"
+      :conversionTable="conversionTable"
       :style="{ fontSize: `calc(${textIncrement}rem)` }"
+    />
+
+    <UnitsModal
+      v-if="showUnitsModal"
+      :ingredients="recipe.ingredients"
+      :conversionTable="conversionTable"
+      @updateUnits="conversionTable = $event, showUnitsModal = false"
+      @close="showUnitsModal = false"
     />
   </div>
 </template>
