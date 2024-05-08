@@ -50,13 +50,13 @@ export default defineEventHandler(async (event ) => {
     })
   }
 
-  const recipe1 = await $fetch<IRecipe>('https://recipe-scraper-pink.vercel.app/scrape', {
+  const recipe1 = await $fetch<IRecipe>('https://gettherecipe.net/scrape', {
     params: {
       url: url1
     }
   })
 
-  const recipe2 = await $fetch<IRecipe>('https://recipe-scraper-pink.vercel.app/scrape', {
+  const recipe2 = await $fetch<IRecipe>('https://gettherecipe.net/scrape', {
     params: {
       url: url2
     }

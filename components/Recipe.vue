@@ -16,7 +16,7 @@ const textIncrement = inject('textIncrement')
       {{ recipe.name }}
     </h1>
 
-    <a :href="`https://recipe-scraper-pink.vercel.app/recipe?url=${recipe.url}`" class="button is-size-7 is-ghost p-0 mb-3" target="_blank">
+    <a :href="`https://www.gettherecipe.net/recipe?url=${recipe.url}`" class="button is-size-7 is-ghost p-0 mb-3" target="_blank">
       <!-- <span>View on Fetch Recipes</span> -->
       <span>View full instructions</span>
       <span class="icon">
